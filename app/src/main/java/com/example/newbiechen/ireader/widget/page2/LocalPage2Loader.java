@@ -1,4 +1,4 @@
-package com.example.newbiechen.ireader.widget.page;
+package com.example.newbiechen.ireader.widget.page2;
 
 import com.example.newbiechen.ireader.model.bean.BookChapterBean;
 import com.example.newbiechen.ireader.model.bean.CollBookBean;
@@ -12,8 +12,8 @@ import com.example.newbiechen.ireader.utils.LogUtils;
 import com.example.newbiechen.ireader.utils.MD5Utils;
 import com.example.newbiechen.ireader.utils.RxUtils;
 import com.example.newbiechen.ireader.utils.StringUtils;
-import com.example.newbiechen.ireader.widget.page2.Page2Loader;
-import com.example.newbiechen.ireader.widget.page2.PageLayout;
+import com.example.newbiechen.ireader.widget.page.PageView;
+import com.example.newbiechen.ireader.widget.page.TxtChapter;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -22,7 +22,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.RandomAccessFile;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -40,7 +39,7 @@ import io.reactivex.disposables.Disposable;
  * 1. 异常处理没有做好
  */
 
-public class LocalPageLoader extends PageLoader {
+public class LocalPage2Loader extends Page2Loader {
     private static final String TAG = "LocalPage2Loader";
     //默认从文件中获取数据的长度
     private final static int BUFFER_SIZE = 512 * 1024;
@@ -67,8 +66,8 @@ public class LocalPageLoader extends PageLoader {
 
     private Disposable mChapterDisp = null;
 
-    public LocalPageLoader(PageView pageView, CollBookBean collBook) {
-        super(pageView, collBook);
+    public LocalPage2Loader(PageLayout pageLayout, CollBookBean collBook) {
+        super(pageLayout, collBook);
         mStatus = STATUS_PARING;
     }
 

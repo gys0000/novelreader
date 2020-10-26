@@ -1,14 +1,17 @@
-package com.example.newbiechen.ireader.widget.page;
+package com.example.newbiechen.ireader.widget.page2;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.RectF;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
+import android.view.ViewGroup;
 
+import com.example.newbiechen.ireader.R;
 import com.example.newbiechen.ireader.model.bean.CollBookBean;
 import com.example.newbiechen.ireader.widget.animation.CoverPageAnim;
 import com.example.newbiechen.ireader.widget.animation.HorizonPageAnim;
@@ -17,13 +20,17 @@ import com.example.newbiechen.ireader.widget.animation.PageAnimation;
 import com.example.newbiechen.ireader.widget.animation.ScrollPageAnim;
 import com.example.newbiechen.ireader.widget.animation.SimulationPageAnim;
 import com.example.newbiechen.ireader.widget.animation.SlidePageAnim;
+import com.example.newbiechen.ireader.widget.page.LocalPageLoader;
+import com.example.newbiechen.ireader.widget.page.NetPageLoader;
+import com.example.newbiechen.ireader.widget.page.PageLoader;
+import com.example.newbiechen.ireader.widget.page.PageMode;
 
 /**
  * Created by Administrator on 2016/8/29 0029.
  * 原作者的GitHub Project Path:(https://github.com/PeachBlossom/treader)
  * 绘制页面显示内容的类
  */
-public class PageView extends View {
+public class PageLayout extends ViewGroup {
 
     private final static String TAG = "BookPageWidget";
 
@@ -47,35 +54,38 @@ public class PageView extends View {
     private PageAnimation.OnPageChangeListener mPageAnimListener = new PageAnimation.OnPageChangeListener() {
         @Override
         public boolean hasPrev() {
-            return PageView.this.hasPrevPage();
+            return PageLayout.this.hasPrevPage();
         }
 
         @Override
         public boolean hasNext() {
-            return PageView.this.hasNextPage();
+            return PageLayout.this.hasNextPage();
         }
 
         @Override
         public void pageCancel() {
-            PageView.this.pageCancel();
+            PageLayout.this.pageCancel();
         }
     };
 
     //点击监听
     private TouchListener mTouchListener;
     //内容加载器
-    private PageLoader mPageLoader;
+    private Page2Loader mPageLoader;
+    private View adView;
 
-    public PageView(Context context) {
+    public PageLayout(Context context) {
         this(context, null);
     }
 
-    public PageView(Context context, AttributeSet attrs) {
+    public PageLayout(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public PageView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public PageLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+//        adView = LayoutInflater.from(context).inflate(R.layout.layout_ad, this, false);
+//        adView.setVisibility(GONE);
     }
 
     @Override
@@ -317,7 +327,7 @@ public class PageView extends View {
     public void drawCurPage(boolean isUpdate) {
         if (!isPrepare) return;
 
-        if (!isUpdate){
+        if (!isUpdate) {
             if (mPageAnim instanceof ScrollPageAnim) {
                 ((ScrollPageAnim) mPageAnim).resetBitmap();
             }
@@ -336,22 +346,27 @@ public class PageView extends View {
         mPageAnim = null;
     }
 
+    @Override
+    protected void onLayout(boolean b, int i, int i1, int i2, int i3) {
+
+    }
+
     /**
      * 获取 Page2Loader
      *
      * @param collBook
      * @return
      */
-    public PageLoader getPageLoader(CollBookBean collBook) {
+    public Page2Loader getPageLoader(CollBookBean collBook) {
         // 判是否已经存在
         if (mPageLoader != null) {
             return mPageLoader;
         }
         // 根据书籍类型，获取具体的加载器
         if (collBook.isLocal()) {
-            mPageLoader = new LocalPageLoader(this, collBook);
+            mPageLoader = new LocalPage2Loader(this, collBook);
         } else {
-            mPageLoader = new NetPageLoader(this, collBook);
+            mPageLoader = new NetPage2Loader(this, collBook);
         }
         // 判断是否 PageView 已经初始化完成
         if (mViewWidth != 0 || mViewHeight != 0) {

@@ -52,6 +52,8 @@ import com.example.newbiechen.ireader.utils.SystemBarUtils;
 import com.example.newbiechen.ireader.widget.page.PageLoader;
 import com.example.newbiechen.ireader.widget.page.PageView;
 import com.example.newbiechen.ireader.widget.page.TxtChapter;
+import com.example.newbiechen.ireader.widget.page2.Page2Loader;
+import com.example.newbiechen.ireader.widget.page2.PageLayout;
 
 import java.util.List;
 
@@ -95,8 +97,10 @@ public class ReadActivity extends BaseMVPActivity<ReadContract.Presenter>
     @BindView(R.id.read_tv_brief)
     TextView mTvBrief;
     /***************content_view******************/
+//    @BindView(R.id.read_pv_page)
+//    PageView mPvPage;
     @BindView(R.id.read_pv_page)
-    PageView mPvPage;
+    PageLayout mPvPage;
     /***************bottom_menu_view***************************/
     @BindView(R.id.read_tv_page_tip)
     TextView mTvPageTip;
@@ -122,7 +126,8 @@ public class ReadActivity extends BaseMVPActivity<ReadContract.Presenter>
     ListView mLvCategory;
     /*****************view******************/
     private ReadSettingDialog mSettingDialog;
-    private PageLoader mPageLoader;
+//    private PageLoader mPageLoader;
+    private Page2Loader mPageLoader;
     private Animation mTopInAnim;
     private Animation mTopOutAnim;
     private Animation mBottomInAnim;
@@ -369,7 +374,7 @@ public class ReadActivity extends BaseMVPActivity<ReadContract.Presenter>
         super.initClick();
 
         mPageLoader.setOnPageChangeListener(
-                new PageLoader.OnPageChangeListener() {
+                new Page2Loader.OnPageChangeListener() {
 
                     @Override
                     public void onChapterChange(int pos) {
@@ -443,7 +448,7 @@ public class ReadActivity extends BaseMVPActivity<ReadContract.Presenter>
                 }
         );
 
-        mPvPage.setTouchListener(new PageView.TouchListener() {
+        mPvPage.setTouchListener(new PageLayout.TouchListener() {
             @Override
             public boolean onTouch() {
                 return !hideReadMenu();

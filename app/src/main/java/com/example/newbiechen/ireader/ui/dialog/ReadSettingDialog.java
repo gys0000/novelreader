@@ -29,6 +29,7 @@ import com.example.newbiechen.ireader.utils.ScreenUtils;
 import com.example.newbiechen.ireader.widget.page.PageLoader;
 import com.example.newbiechen.ireader.widget.page.PageMode;
 import com.example.newbiechen.ireader.widget.page.PageStyle;
+import com.example.newbiechen.ireader.widget.page2.Page2Loader;
 
 import java.util.Arrays;
 
@@ -79,7 +80,8 @@ public class ReadSettingDialog extends Dialog {
     /************************************/
     private PageStyleAdapter mPageStyleAdapter;
     private ReadSettingManager mSettingManager;
-    private PageLoader mPageLoader;
+//    private PageLoader mPageLoader;
+    private Page2Loader mPageLoader;
     private Activity mActivity;
 
     private PageMode mPageMode;
@@ -92,7 +94,8 @@ public class ReadSettingDialog extends Dialog {
     private boolean isTextDefault;
 
 
-    public ReadSettingDialog(@NonNull Activity activity, PageLoader mPageLoader) {
+//    public ReadSettingDialog(@NonNull Activity activity, PageLoader mPageLoader) {
+    public ReadSettingDialog(@NonNull Activity activity, Page2Loader mPageLoader) {
         super(activity, R.style.ReadSettingDialog);
         mActivity = activity;
         this.mPageLoader = mPageLoader;
