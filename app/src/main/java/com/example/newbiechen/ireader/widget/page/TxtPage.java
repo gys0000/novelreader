@@ -3,6 +3,7 @@ package com.example.newbiechen.ireader.widget.page;
 import java.util.List;
 
 /**
+ * 每一个页面的信息
  * Created by newbiechen on 17-7-1.
  */
 
